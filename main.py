@@ -33,12 +33,16 @@ async def on_message(message):
 
     await bot.process_commands(message)
 
-
 #pick where to eat
 @bot.command()
 async def pick(ctx, *, arg):
     foods = arg.split(',')
     await ctx.send(foods[rd(0, len(foods)-1)])
+
+
+#TODO add place to eat
+@bot.command()
+
 
 
 bot.run(token, log_handler=handler, log_level=logging.DEBUG)
