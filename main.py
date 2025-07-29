@@ -34,6 +34,13 @@ async def on_message(message):
         print(message.content.lower())
         await message.channel.send(f"no youre gay {message.author.mention}")
 
+    elif "test" in message.content.lower():
+        embedMsg = discord.Embed(title="Title",
+                                 description="This is the description",
+                                 color=0x2C2F33)
+        embedMsg.add_field(name="something", value="else", inline=False)
+        await message.channel.send(embed=embedMsg)
+
     await bot.process_commands(message)
 
 #pick where to eat by randomizing it
