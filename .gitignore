@@ -1,1 +1,9 @@
+#Files
 *.db
+*.env
+*.cfg
+
+# Directories
+venv/
+logs/
+__pycache__/
