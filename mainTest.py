@@ -42,7 +42,6 @@ async def on_ready():
 async def load():
     for fname in os.listdir("./cogs"):
         if fname.endswith(".py"):
-            print(fname)
             await bot.load_extension(f"cogs.{fname[:-3]}")
 
 async def main():

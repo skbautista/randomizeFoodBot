@@ -11,16 +11,15 @@ class database:
 
     def addFood(self, name):
         try:
-            self.cur.execute(f"INSERT INTO food VALUES(?)", [name])
+            self.cur.execute(f"INSERT INTO food VALUES(?, ?)", [name, ])
             self.con.commit()
         except:
             pass
     
     def getAllFood(self):
-        return self.cur.execute("SELECT name FROM food").fetchall()
+        return self.cur.execute("SELECT name, FROM food").fetchall()
     
-
-# db1 = database("food.db")
+# db1 = database("Food.db")
 # db1.addFood("fuh")
 # db1.addFood("japabowl")  
 # print(db1.getAllFood())
