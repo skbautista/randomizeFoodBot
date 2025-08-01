@@ -13,14 +13,24 @@ class FoodCommands(commands.Cog):
         await self.bot.tree.sync()
         print(f"{__name__} cog is ready.")
 
-    @app_commands.command(name="addfood", description="Add food to the bot's colleciton.")
-    async def addfood(self, interaction: discord.Interaction, restaurant: str, typeofrestaurant: str=None):
-        print(restaurant, typeofrestaurant)
-        await interaction.response.send_message("testing")
+    # @app_commands.command(name="addresto", description="Add a restaurant to the bot's colleciton.")
+    # async def addresto(self, interaction: discord.Interaction, restaurant: str, restaurantType: str=None):
+    #     self.database.addFood(restaurant, restaurantType)
+    #     embedMsg = discord.Embed(title="Successfully Added a restaurant to the collection.")
+    #     embedMsg.add_field(name="What type do we have so far?", 
+    #                        value=f"{db.database.getAllTypes()}", 
+    #                        inline=False)
+    #     await interaction.response.send_message(embedMsg)
     
-    @app_commands.command(name="findfood", description='The bot will pick a food spot for you')
-    async def findfood(self, interaction: discord.Interaction):
-        await interaction.response.send_message(f"{self.database.getAllFood()}")
+    @app_commands.command(name="getresto", description='The bot will pick a food spot for you')
+    async def getresto(self, interaction: discord.Interaction, rtype: str | None):
+        restos = self.database.getAllFood(rtype)
+        if len(restos) == 0:
+            embedMsg = discord.Embed(title=f"There are no '{rtype} restaurants.'")
+            embedMsg.add_field(name=f"Restaurants Available:", value=f"{self.database.getAllTypes()}")
+            await interaction.response.send_message(embed=embedMsg)
+        else:
+            await interaction.response.send_message(f"{restos}")
 
 async def setup(bot):
     await bot.add_cog(FoodCommands(bot))
