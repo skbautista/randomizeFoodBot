@@ -21,7 +21,16 @@ class FoodCommands(commands.Cog):
     #                        value=f"{db.database.getAllTypes()}", 
     #                        inline=False)
     #     await interaction.response.send_message(embedMsg)
-    
+
+    @app_commands.command(name="addresto", description="Add a restaurant to the collection")
+    async def addresto(self, interaction: discord.Interaction, resto: str, rType: str | None):
+        self.database.addFood(resto, rType)
+        embedMsg = discord.Embed(title="Added a restaurant!")
+        embedMsg.add_field(name="",
+                           value="",
+                           inline=True)
+        await interaction.response.send_message(embedMsg)
+
     @app_commands.command(name="getresto", description='The bot will pick a food spot for you')
     async def getresto(self, interaction: discord.Interaction, rtype: str | None):
         restos = self.database.getAllFood(rtype)
