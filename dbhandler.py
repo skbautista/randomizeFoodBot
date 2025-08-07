@@ -1,4 +1,5 @@
 import sqlite3
+from random import choice
 
 class database:
     #Initial construct of the database
@@ -23,13 +24,19 @@ class database:
         return {x[0] for x in self.cur.execute("SELECT restaurant_type FROM food").fetchall()}
     
     #Returns a list from a query to get all of the restaurants and/or depending on the restaurant type
-    def getAllFood(self, restaurantType: str | None):            
+    def _getAllFood(self, restaurantType: str | None):            
         if restaurantType == None:
             query = "SELECT name FROM food"
         else:
             query = f"SELECT name FROM food WHERE restaurant_type='{restaurantType.lower()}'"
 
         return [x[0] for x in self.cur.execute(query).fetchall()]
+    
+    def pickResto(self, restaurantType: str | None):
+        try:
+            return choice(self._getAllFood(restaurantType))
+        except:
+            return list()
 
               
 db1 = database("Food.db")
