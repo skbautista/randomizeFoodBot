@@ -24,11 +24,10 @@ class FoodCommands(commands.Cog):
 
     @app_commands.command(name="getresto", description='The bot will pick a food spot for you')
     async def getresto(self, interaction: discord.Interaction, rtype: str | None):
-        # restos = self.database.getAllFood(rtype)
         restos = self.database.pickResto(rtype)
         if len(restos) == 0:
             embedMsg = discord.Embed(title=f"There are no '{rtype} restaurants.'")
-            embedMsg.add_field(name=f"Restaurants Available:", value=f"{self.database.getAllTypes()}")
+            embedMsg.add_field(name=f"Types of restaurants available:", value=f"{self.database.getAllTypes()}")
             await interaction.response.send_message(embed=embedMsg)
         else:
             await interaction.response.send_message(f"Eat at '{restos}' !")
